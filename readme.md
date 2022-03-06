@@ -27,9 +27,23 @@ other users' reviews and comments
 
 `source <your-virtual-env-name>/bin/activate`
 
-4. Install the dependencies with pip
+
+4. Secret key
+
+Create a .litreview.secret file in the Settings folder and add a json 
+dictionary with the SECRET_KEY for Django.
+
+5. Install the dependencies with pip
 
 `pip install -r requirements.txt`
+
+6. Database
+
+The database is a sqlite3 database. One is provided with the project but 
+should you wish to create your own, it should be named litreview.sqlite3 or 
+the settings file updated locally accordingly.
+
+Django migrations will then need to be run.
 
 ## How to use
 
