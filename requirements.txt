@@ -1,0 +1,8 @@
+django==4.0.3
+
+django-crispy-forms==1.14.0
+crispy-bootstrap5==0.6
+django-bootstrap5==21.3
+
+pre-commit==2.17.0
+flake8==4.0.1
