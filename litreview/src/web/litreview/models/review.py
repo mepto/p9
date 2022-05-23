@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
-from litreview.src.web.litreview.models.ticket import Ticket
+from litreview.models.ticket import Ticket
 
 
 User = get_user_model()

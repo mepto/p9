@@ -23,7 +23,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Read secret file
-with open(os.path.join(BASE_DIR, 'settings', '.litreview.secret')) as f:
+with (BASE_DIR / 'settings' / '.litreview.secret').open() as f:
     SECRETS = json.load(f)
 
 SECRET_KEY = SECRETS['SECRET_KEY']
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'litreview.src.web.litreview.urls'
+ROOT_URLCONF = 'litreview.urls'
 
 TEMPLATES = [
     {
