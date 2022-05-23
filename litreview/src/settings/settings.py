@@ -22,9 +22,6 @@ MEDIA_URL = '/media/'
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
-
 # Read secret file
 with open(os.path.join(BASE_DIR, 'settings', '.litreview.secret')) as f:
     SECRETS = json.load(f)
@@ -36,21 +33,28 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
-# AUTH_USER_MODEL = 'litreview.User'
 
 # Application definition
 
 INSTALLED_APPS = [
+    # app
+    "litreview",
+
+    # django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #vendors
     "crispy_forms",
     "crispy_bootstrap5",
-    "litreview",
+
 ]
+
+AUTH_USER_MODEL = 'litreview.LitUser'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -65,12 +69,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'litreview.src.web.urls'
+ROOT_URLCONF = 'litreview.src.web.litreview.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'web/templates'],
+        'DIRS': [BASE_DIR / 'web/litrevciew/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

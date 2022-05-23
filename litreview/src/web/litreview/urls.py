@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from litreview.src.web.views.main import Homepage
+from litreview.src.web.litreview.views.main import Homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),

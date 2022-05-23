@@ -2,7 +2,9 @@
 
 ## What it does
 Allows authenticated users to create, edit, delete reviews on books, follow 
-other users' reviews and comments
+other users' reviews and comment
+
+#TODO: add that PYTHONPATH var must be added at the project root
 
 ## How to install
 1. Clone the repository on your computer.
@@ -43,7 +45,11 @@ The database is a sqlite3 database. One is provided with the project but
 should you wish to create your own, it should be named litreview.sqlite3 or 
 the settings file updated locally accordingly.
 
-Django migrations will then need to be run.
+### Migrations
+
+If you create your own database, you will need to run the migrations.
+
+`python manage.py migrate`
 
 ## How to use
 
