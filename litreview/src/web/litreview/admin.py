@@ -1,7 +1,7 @@
 from django.contrib import admin
-from litreview.src.web.litreview.models.user import LitUser, UserFollows
-from litreview.src.web.litreview.models.ticket import Ticket
-from litreview.src.web.litreview.models.review import Review
+from litreview.models.user import LitUser, UserFollows
+from litreview.models.ticket import Ticket
+from litreview.models.review import Review
 
 
 # Register your models here.
