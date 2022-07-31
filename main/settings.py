@@ -48,11 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # app
+    'main',
     "litreview",
 
     # vendors
+    "django_bootstrap5",
     "crispy_forms",
     "crispy_bootstrap5",
+    'manifest_loader'
 ]
 
 MIDDLEWARE = [
@@ -65,17 +68,21 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+SITE_ID = 1
+
 AUTH_USER_MODEL = 'litreview.User'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-ROOT_URLCONF = 'litreview.urls'
+ROOT_URLCONF = 'main.urls'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'litreview' /'templates'],
+        'DIRS': [BASE_DIR / 'litreview' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +97,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -100,7 +106,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -120,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -132,11 +136,14 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / STATIC_URL
+STATICFILES_DIRS = [
+    BASE_DIR / 'dist/assets'  # the directory webpack outputs to
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

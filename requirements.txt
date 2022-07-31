@@ -5,7 +5,13 @@ pillow==9.1.1
 django-crispy-forms==1.14.0
 crispy-bootstrap5==0.6
 django-bootstrap5==21.3
+django-manifest-loader==1.0.0
 
 # ci
 pre-commit==2.17.0
 flake8==4.0.1
+pylint==2.11.1
+pylint-django==2.4.4
+coverage==6.1.1
+gitlint==0.16.0
+interrogate==1.5.0
