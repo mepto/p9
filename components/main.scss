@@ -6,22 +6,15 @@ $serif: 'Rohza One', serif;
 $sans-serif: 'Work Sans', sans-serif;
 $hand: 'Just Another Hand', sans-serif;
 $primary: #1D7370;
+$secondary: #663300;
 
 .bg-dark {
-  background: #663300 !important;
-}
-
-.logo {
-  font-family: $serif;
-  font-size: 30px;
-  font-weight: bold;
+  background: $secondary !important;
 }
 
 body {
   font-family: $sans-serif;
-  background: url(https://www.toptal.com/designers/subtlepatterns/uploads/ricepaper2.png);
-  background-size: cover;
-  //background: #CCAB52 !important;
+  background: url(https://www.toptal.com/designers/subtlepatterns/uploads/ricepaper2.png) repeat;
 }
 
 h1, h2, h3, h4 {
@@ -29,18 +22,35 @@ h1, h2, h3, h4 {
 }
 
 h2.page-title {
-  margin: 0 auto;
+  margin: 5px auto 20px auto;
   font-weight: bold;
   color: $primary;
 }
 
-header a {
-  border-bottom: 1px solid transparent;
+header {
+  margin-bottom: 30px;
 
-  margin-bottom: 15px;
+  a {
+    border-bottom: 1px solid transparent;
 
-  &:hover {
-    border-bottom: 1px solid #fff;
+    @media all and (max-width: 992px) {
+      margin-bottom: 15px;
+    }
+
+    &:hover {
+      border-bottom: 1px solid #fff;
+    }
+
+    &.logo {
+      font-family: $serif;
+      font-size: 30px;
+      font-weight: bold;
+
+      &:hover {
+        border-color: transparent;
+        color: lighten($secondary, 75%) !important;
+      }
+    }
   }
 }
 
@@ -48,6 +58,7 @@ header a {
   background: $primary;
   border-color: $primary;
   color: #fff;
+
   &:hover {
     color: #fff;
     background: darken($primary, 3%);
@@ -57,5 +68,16 @@ header a {
 
 .login {
   margin: 0 auto !important;
+  width: 400px;
+
+  .text-center {
+    margin: 0 auto;
+  }
+}
+
+#register {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
 }
 

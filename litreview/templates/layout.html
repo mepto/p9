@@ -11,11 +11,17 @@
   <script src="{% manifest 'main.js' %}"></script>
 </head>
 <body>
-{% block title %}{% endblock %}
+{% block header %}{% endblock %}
+<div class="row">
+  <div class="col-12">
+    {% block title %}{% endblock %}
+  </div>
+
+</div>
 <div class="main">
   {% bootstrap_messages %}
   <div>
-    {% block content %}{% endblock %}
+    {% block main %}{% endblock %}
   </div>
 </div>
 </body>
