@@ -1,0 +1,61 @@
+//@import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
+//@import url('https://fonts.googleapis.com/css2?family=Asap:wght@400;700&family=Caudex:wght@400;700&family=Jost:ital,wght@0,300;0,400;1,700&family=Just+Another+Hand&family=Kameron:wght@400;700&family=Nunito+Sans:wght@300;700&family=Nunito:wght@300;700&family=Rozha+One&family=Work+Sans:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Rozha+One&family=Work+Sans:wght@300;700&display=swap');
+
+$serif: 'Rohza One', serif;
+$sans-serif: 'Work Sans', sans-serif;
+$hand: 'Just Another Hand', sans-serif;
+$primary: #1D7370;
+
+.bg-dark {
+  background: #663300 !important;
+}
+
+.logo {
+  font-family: $serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+body {
+  font-family: $sans-serif;
+  background: url(https://www.toptal.com/designers/subtlepatterns/uploads/ricepaper2.png);
+  background-size: cover;
+  //background: #CCAB52 !important;
+}
+
+h1, h2, h3, h4 {
+  font-family: $serif;
+}
+
+h2.page-title {
+  margin: 0 auto;
+  font-weight: bold;
+  color: $primary;
+}
+
+header a {
+  border-bottom: 1px solid transparent;
+
+  margin-bottom: 15px;
+
+  &:hover {
+    border-bottom: 1px solid #fff;
+  }
+}
+
+.btn-default {
+  background: $primary;
+  border-color: $primary;
+  color: #fff;
+  &:hover {
+    color: #fff;
+    background: darken($primary, 3%);
+    border-color: darken($primary, 3%);
+  }
+}
+
+.login {
+  margin: 0 auto !important;
+}
+
