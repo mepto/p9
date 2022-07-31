@@ -1,0 +1,22 @@
+{% load manifest django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>LITreview</title>
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <link rel="stylesheet" type="text/css" href="{% manifest 'main.css' %}"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <script src="{% manifest 'main.js' %}"></script>
+</head>
+<body>
+{% block title %}{% endblock %}
+<div class="main">
+  {% bootstrap_messages %}
+  <div>
+    {% block content %}{% endblock %}
+  </div>
+</div>
+</body>
+</html>

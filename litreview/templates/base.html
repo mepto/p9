@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>LITreview</title>
-  </head>
-  <body>
-    <h1>Welcome to LITreview!</h1>
-    <p>The current time is {{ date }}</p>
-  </body>
-</html>
+{% extends 'layout.html' %}
+
+{% block content %}
+  {% include 'header.html' %}
+{#  <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">#}
+{#    {% csrf_token %}#}
+{#    <input type="search" class="form-control form-control-dark"#}
+{#           placeholder="Search..." aria-label="Search">#}
+{#  </form>#}
+
+  {% block extra_content %}
+  {% endblock %}
+{% endblock %}

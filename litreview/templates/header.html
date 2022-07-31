@@ -1,0 +1,35 @@
+<header class="p-3 bg-dark text-white">
+  <div class="">
+    <div
+        class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/"
+         class="mb-2 mb-lg-0 text-white text-decoration-none
+         justify-content-start logo">
+        <i class="bi bi-book"></i> LitReview
+      </a>
+      <ul class="nav col-12 col-lg-auto me-lg-auto ms-lg-auto mb-2
+      justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">Review
+          requests</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">Review posting</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">Followed users</a></li>
+        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+      </ul>
+      <div class="text-end">
+        {% if user.is_authenticated %}
+          <a class="btn btn-outline-light me-2"
+             href="{% url 'logout' %}"><i class="bi bi-lock"></i> Logout</a>
+        {% else %}
+          <a class="btn btn-outline-light me-2"
+             href="{% url 'login' %}"><i class="bi
+             bi-person-circle"></i> Login</a>
+          <a href="{% url 'signup' %}" type="button"
+             class="btn btn-default"><i class="bi bi-person-plus-fill"></i>
+            Register</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</header>
