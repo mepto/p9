@@ -1,0 +1,29 @@
+<!--/templates/register.html-->
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+  <div id="register">
+    <h2 class="page-title">User profile</h2>
+    {#    <form method="post">#}
+    <div>
+      {% if user.user_avatar %}
+        <img class="avatar float-start" src="{{ user.user_avatar.url }}">
+      {% else %}<em>No image selected</em>{% endif %}
+      <p><b>Username: </b>{{ user.username }}</p>
+      <p><b>E-mail: </b>{{ user.email }}</p>
+      {#      {% crispy form %}#}
+      {#      <button type="submit" class="btn btn-default mx-auto">#}
+      {#        Save#}
+      {#      </button>#}
+    </div>
+    {#    </form>#}
+    <br>
+    <br>
+    <div class="btn-group">
+      <a class="btn btn-outline-dark" href="{% url 'home' %}">Back to Home</a>
+    </div>
+
+  </div>
+
+{% endblock %}
