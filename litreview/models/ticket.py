@@ -13,6 +13,9 @@ class Ticket(models.Model):
     image = models.ImageField(upload_to="covers/", null=True, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-time_created']
+
     def __str__(self):
         return self.title
 
