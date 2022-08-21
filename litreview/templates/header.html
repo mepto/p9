@@ -10,17 +10,24 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto ms-lg-auto mb-2
       justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
-        <li><a href="#" class="nav-link px-2 text-white">Review
-          requests</a></li>
+        <li><a href="{% url 'tickets' %}" class="nav-link px-2
+        text-white">Review requests</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Review posting</a></li>
         <li><a href="#" class="nav-link px-2 text-white">Followed users</a></li>
         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
       <div class="text-end">
         {% if user.is_authenticated %}
-          <a class="btn btn-outline-light me-2"
-             href="{% url 'logout' %}"><i class="bi bi-lock"></i>
-            Logout</a>
+          <ul class="nav">
+            <li><a href="{% url 'profile' %}" class="nav-link px-2 text-white">
+              {% if user.user_avatar %}
+              <img class="micro-avatar" src="{{ user.user_avatar.url }}" />
+              {% endif %}My profile</a></li>
+            <li>
+              <a class="btn btn-outline-light ms-4 mt-1 me-2"
+                 href="{% url 'logout' %}"><i class="bi bi-lock"></i> Logout</a>
+            </li>
+          </ul>
         {% else %}
           <a class="btn btn-outline-light me-2"
              href="{% url 'login' %}"><i class="bi
