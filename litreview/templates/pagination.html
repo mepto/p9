@@ -1,0 +1,25 @@
+<div class="pagination col-12 mt-4 mb-4">
+    <span class="col-12 step-links d-flex justify-content-center">
+        {% if page_obj.has_previous %}
+            <a class="btn btn-sm btn-outline-secondary me-2 align-self-center"
+               href="?page=1"><i class="bi bi-chevron-double-left"></i></a>
+            <a class="btn btn-sm btn-outline-secondary me-2 align-self-center"
+               href="?page={{ page_obj.previous_page_number }}">
+              <i class="bi bi-chevron-left"></i></a>
+        {% endif %}
+
+        <span class="current me-2 align-self-center">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-sm btn-outline-secondary me-2 align-self-center"
+               href="?page={{ page_obj.next_page_number }}">
+              <i class="bi
+            bi-chevron-right"></i></a>
+            <a class="btn btn-sm btn-outline-secondary align-self-center"
+               href="?page={{ page_obj.paginator.num_pages }}">
+              <i class="bi bi-chevron-double-right"></i></a>
+        {% endif %}
+    </span>
+</div>
