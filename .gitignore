@@ -3,5 +3,8 @@
 /__pycache__/
 /dist/
 /static/
+/media/
+/node_modules/
 
+*.sqlite3
 *.secret
