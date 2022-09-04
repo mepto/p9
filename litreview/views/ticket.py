@@ -31,23 +31,23 @@ class TicketCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         """Post and save data."""
+        self.object = None
         form = self.get_form()
         if form.is_valid():
-            form.user = request.user
             form.image = request.FILES
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
 
-    def form_valid(self, form):
-        """Check form data."""
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
     def get_context_data(self, **kwargs):
         """Call the base implementation first to get the context."""
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
+        initial_data = {
+            'user': self.request.user
+        }
+        form = TicketForm(initial=initial_data)
+        context['form'] = form
         return context
 
 
@@ -76,7 +76,8 @@ class TicketEditView(TicketCreateView, UpdateView):
         initial_data = {
             'title': self.object.title,
             'description': self.object.description,
-            'image': self.object.image
+            'image': self.object.image,
+            'user': self.object.user
         }
         form = TicketForm(initial=initial_data)
         context['title'] = self.title

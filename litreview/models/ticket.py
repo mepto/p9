@@ -7,10 +7,10 @@ User = get_user_model()
 
 class Ticket(models.Model):
     """Store the tickets."""
-    title = models.CharField(max_length=128)
-    description = models.TextField(max_length=2048, blank=True)
+    title = models.CharField(max_length=128, verbose_name='Request title')
+    description = models.TextField(max_length=2048, blank=True, verbose_name='Request description')
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="covers/", null=True, blank=True)
+    image = models.ImageField(upload_to="covers/", null=True, blank=True, verbose_name='Book image')
     time_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

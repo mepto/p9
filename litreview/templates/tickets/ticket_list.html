@@ -8,41 +8,41 @@
       <i class="bi bi-chat-square-quote"></i> Create a review</a>
   </div>
 
-  {% for item in page_obj %}
+  {% for ticket in page_obj %}
     <div class="ticket mt-5">
       <div class="col-12 bg-dark ticket-header d-flex justify-content-between
        align-items-stretch">
       <h4 class="align-self-center mb-0 pt-1 pb-1">
         <i class="bi bi-bookmark-star-fill"></i>
-        {% if item.user == user %}
+        {% if ticket.user == user %}
           &nbsp;You requested a review</h4>
           <span class="align-self-center">
             <a class="btn btn-outline-light ms"
-               href="{% url 'ticket-edit' item.id %}">
+               href="{% url 'ticket-edit' ticket.id %}">
               <i class="bi bi-pencil"></i> Edit</a>
             <a class="btn btn-outline-light"
-               href="{% url 'ticket-delete' item.id %}">
+               href="{% url 'ticket-delete' ticket.id %}">
               <i class="bi bi-trash"></i> Delete</a>
           </span>
         {% else %}
-            {{ item.user }} requested a review</h4>
+            {{ ticket.user }} requested a review</h4>
         {% endif %}
         <span class="float-end align-self-center"><small>
-          {{ item.time_created }}</small></span>
+          {{ ticket.time_created }}</small></span>
       </div>
       <div class="col-12 ticket-content">
         <a class="btn btn-default mt-1 mb-1 ms-1 float-end" href=
-            "{% url 'review-new' %}">
+            "{% url 'review-new' ticket.id %}">
           <i class="bi bi-chat-left-quote"></i> Submit review</a>
-        {% if item.image %}
+        {% if ticket.image %}
           <div class="col-xs-12 col-md-3 float-start me-3">
-            <img class="cover" src="{{ item.cover }}"/></div>
+            <img class="cover" src="{{ ticket.cover }}"/></div>
         {% endif %}
-        <div class="{% if item.image %}offset-md-3 col-md-9{% else %}col-12
+        <div class="{% if ticket.image %}offset-md-3 col-md-9{% else %}col-12
 {% endif %}">
-          <h3 class="fw-bold">{{ item.title }}</h3>
+          <h3 class="fw-bold">{{ ticket.title }}</h3>
           <hr>
-          <div>{{ item.description }}</div>
+          <div>{{ ticket.description }}</div>
         </div>
       </div>
     </div>

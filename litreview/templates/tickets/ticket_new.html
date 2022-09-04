@@ -4,7 +4,7 @@
 
 {% block main %}
   <form method="post" enctype="multipart/form-data">
-    <div>
+    <div class="ticket-form">
       {% crispy form %}
       <br>
       <a type="submit" href="{% url 'tickets' %}"
