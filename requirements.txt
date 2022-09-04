@@ -1,4 +1,4 @@
-django==4.0.4
+django==4.1
 
 # vendors
 pillow==9.1.1
