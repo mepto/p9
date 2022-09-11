@@ -18,7 +18,7 @@ urlpatterns = [
     path('ticket/list/', TicketListView.as_view(), name='tickets'),
     path('review/new/<int:ticket>/', ReviewCreateView.as_view(), name='review-new'),
     path('review/new/', ReviewCreateView.as_view(), name='review-new'),
-    path('review/edit/<int:pk>/', ReviewEditView.as_view(), name='review-edit'),
+    path('review/edit/<int:review>/', ReviewEditView.as_view(), name='review-edit'),
     path('review/delete/<int:pk>/', ReviewDeleteView.as_view(), name='review-delete'),
     path('review/list/', ReviewListView.as_view(), name='reviews'),
 ]
