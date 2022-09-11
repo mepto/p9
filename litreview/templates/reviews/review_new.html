@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block main %}
+  <form method="post" enctype="multipart/form-data">
+    <div class="ticket-form">
+    <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
+        <h4 class="align-self-center mb-0 pt-1 pb-1">
+          <i class="bi bi-chat-left-quote"></i>
+          &nbsp;Your review</h4></div>
+      <div class="p-3">
+        {% crispy review_form %}
+      <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
+        <h4 class="align-self-center mb-0 pt-1 pb-1">
+          <i class="bi bi-bookmark-star-fill"></i>
+          &nbsp;Review request by {{ ticket_data.user }}</h4>
+      </div>
+      <div class="p-3 clearfix">
+        {% if ticket_data.image %}
+          <div class="float-end col-md-3 pe-3">
+            <img src="{{ ticket_data.image }}" class="cover ms-3 mb-3">
+          </div>
+        {% endif %}
+        {% if ticket_readonly %}
+          <h3 class="fw-bold">{{ ticket_data.title }}</h3>
+          <p>{{ ticket_data.description }}</p>
+        {% else %}
+          {% crispy ticket_form %}
+        {% endif %}
+      </div>
+{#      <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">#}
+{#        <h4 class="align-self-center mb-0 pt-1 pb-1">#}
+{#          <i class="bi bi-chat-left-quote"></i>#}
+{#          &nbsp;Your review</h4></div>#}
+{#      <div class="p-3">#}
+{#        {% crispy review_form %}#}
+        <br>
+        <a type="submit" href="{% url 'reviews' %}"
+           class="btn btn-secondary mx-auto">Cancel</a>
+        <button type="submit" class="btn btn-default mx-auto">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+  <br>
+{% endblock %}
