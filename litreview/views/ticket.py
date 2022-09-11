@@ -46,11 +46,8 @@ class TicketCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         """Call the base implementation first to get the context."""
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
-        initial_data = {
-            'user': self.request.user
-        }
-        form = TicketForm(initial=initial_data)
-        context['form'] = form
+        context['ticket_form'] = TicketForm(initial={'user': self.request.user})
+        context['request_user'] = self.request.user
         return context
 
 
@@ -66,7 +63,7 @@ class TicketEditView(TicketCreateView, UpdateView):
 
     def post(self, request, *args, **kwargs):
         """Post and save data."""
-        self.object = Ticket.objects.get(id=kwargs['pk'])
+        self.object = Ticket.objects.get(id=self.kwargs['pk'])
         form = self.get_form()
         if form.is_valid():
             form.instance.id = self.object.id
@@ -88,9 +85,9 @@ class TicketEditView(TicketCreateView, UpdateView):
             'image': self.object.image,
             'user': self.object.user
         }
-        form = TicketForm(initial=initial_data)
+        context['request_user'] = self.object.user
         context['title'] = self.title
-        context['form'] = form
+        context['ticket_form'] = TicketForm(initial=initial_data)
         return context
 
 

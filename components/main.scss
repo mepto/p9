@@ -12,6 +12,7 @@ $shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !importan
 
 .bg-dark {
   background: $secondary !important;
+  color: white;
 }
 
 body {
@@ -127,7 +128,6 @@ header {
 
 .ticket-form, .review-form {
   box-shadow: $shadow;
-  padding: 15px;
 
   label, .form-label {
     font-size: 20px;
@@ -135,5 +135,9 @@ header {
     color: $secondary;
     margin-top: 10px;
     margin-bottom: 0.5em;
+  }
+
+  #div_id_ticket, #div_id_user {
+    margin-bottom: 0 !important;
   }
 }

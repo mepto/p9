@@ -16,12 +16,21 @@ class TicketForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['description'].widget = Textarea(attrs={'rows': 4, 'cols': 25})
         self.helper = FormHelper()
-        self.helper.layout = Layout(
-            Row(
-                Field('title', wrapper_class='col-md-9'),
-                Column(UneditableField('user', readonly=True,
-                css_class='form-control col-md-3', wrapper_class='col-md-3'), css_class="col-md-3 mb-3"),
-                Field('user', type="hidden")
-            ),
-            'description', 'image'
-        )
+        user_layout = Layout(Field('user', readonly=True, type="hidden"))
+        if 'disabled' in kwargs and kwargs['disabled']:
+            self.helper.layout = Layout(
+                user_layout,
+                Row(
+                    Field('title', readonly=True, wrapper_class='col-md-9'),
+                    Field('user', readonly=True, type="hidden"),
+                ),
+                Field('description', readonly=True), Field('image', readonly=True)
+            )
+        else:
+            self.helper.layout = Layout(
+                user_layout,
+                Row(
+                    Field('title', wrapper_class='col-md-9'),
+                ),
+                Field('description'), Field('image')
+            )
