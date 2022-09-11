@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <div class="alert alert-warning">
+    <h1>403 - Permission Denied</h1>
+  <p>You must be logged in and have the adequate permissions to view this
+    page. </p>
+  <p>Go back to the <a href="{% url 'home' %}">Home page</a></p>
+  </div>
+{% endblock %}

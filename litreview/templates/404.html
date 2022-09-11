@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <div class="alert alert-warning">
+    <h1>404 - Page not found</h1>
+  <p>The page you are looking does not seem to exist on this site.</p>
+  <p>Go back to the <a href="{% url 'home' %}">Home page</a></p>
+  </div>
+{% endblock %}
