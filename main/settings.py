@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     "django_bootstrap5",
     "crispy_forms",
     "crispy_bootstrap5",
-    'manifest_loader'
+    'manifest_loader',
+    'rules.apps.AutodiscoverRulesConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,11 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 ROOT_URLCONF = 'main.urls'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'home'
+
+AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 TEMPLATES = [
     {

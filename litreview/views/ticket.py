@@ -1,5 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from rules.contrib.views import PermissionRequiredMixin
 
 from litreview.forms.ticket import TicketForm
 from litreview.models import Ticket, User
@@ -21,9 +23,10 @@ class TicketListView(ListView):
         return context
 
 
-class TicketCreateView(CreateView):
+class TicketCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """Create new ticket."""
     model = Ticket
+    permission_required = 'litreview.add_ticket'
     template_name = 'tickets/ticket_new.html'
     success_url = reverse_lazy('tickets')
     title = 'Create a ticket for a review request'
@@ -53,7 +56,13 @@ class TicketCreateView(CreateView):
 
 class TicketEditView(TicketCreateView, UpdateView):
     """Edit ticket created by user."""
+    permission_required = 'litreview.change_ticket'
     title = 'Edit my review request ticket'
+
+    def has_permission(self):
+        obj = Ticket.objects.get(id=self.kwargs['pk'])
+        perms = self.get_permission_required()
+        return self.request.user.has_perms(perms, obj)
 
     def post(self, request, *args, **kwargs):
         """Post and save data."""
@@ -85,12 +94,18 @@ class TicketEditView(TicketCreateView, UpdateView):
         return context
 
 
-class TicketDeleteView(DeleteView):
+class TicketDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """Delete ticket created by user."""
+    permission_required = 'litreview.delete_ticket'
     model = Ticket
     success_url = reverse_lazy('tickets')
     template_name = "confirm_delete.html"
-    title = 'Delete ticket?'
+    title = 'Delete review?'
+
+    def has_permission(self):
+        obj = Ticket.objects.get(id=self.kwargs['pk'])
+        perms = self.get_permission_required()
+        return self.request.user.has_perms(perms, obj)
 
     def get_context_data(self, **kwargs):
         """Return deletion of confirmation."""
