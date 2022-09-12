@@ -3,13 +3,8 @@
 
 {% block main %}
   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <div class="ticket-form">
-    <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
-        <h4 class="align-self-center mb-0 pt-1 pb-1">
-          <i class="bi bi-chat-left-quote"></i>
-          &nbsp;Your review</h4></div>
-      <div class="p-3">
-        {% crispy review_form %}
       <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
         <h4 class="align-self-center mb-0 pt-1 pb-1">
           <i class="bi bi-bookmark-star-fill"></i>
@@ -25,15 +20,40 @@
           <h3 class="fw-bold">{{ ticket_data.title }}</h3>
           <p>{{ ticket_data.description }}</p>
         {% else %}
-          {% crispy ticket_form %}
+          {#          {% crispy ticket_form %}#}
+          <div class="form-group col-md-12 mb-2">
+            {{ ticket_form.user.as_hidden }}
+          </div>
+          <div class="form-group col-md-12 mb-2">
+            {{ ticket_form.title | as_crispy_field }}
+          </div>
+          <div class="form-group col-md-12 mb-2">
+            {{ ticket_form.description | as_crispy_field }}
+          </div>
+          <div class="form-group col-md-12 mb-2">
+            {{ ticket_form.image | as_crispy_field }}
+          </div>
         {% endif %}
       </div>
-{#      <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">#}
-{#        <h4 class="align-self-center mb-0 pt-1 pb-1">#}
-{#          <i class="bi bi-chat-left-quote"></i>#}
-{#          &nbsp;Your review</h4></div>#}
-{#      <div class="p-3">#}
-{#        {% crispy review_form %}#}
+      <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
+        <h4 class="align-self-center mb-0 pt-1 pb-1">
+          <i class="bi bi-chat-left-quote"></i>
+          &nbsp;Your review</h4></div>
+      <div class="p-3">
+        <div class="form-group col-md-12 mb-2">
+          {{ review_form.user.as_hidden }}
+          {{ review_form.ticket.as_hidden }}
+        </div>
+        {#                {% crispy review_form %}#}
+        <div class="form-group col-md-12 mb-2">
+          {{ review_form.headline | as_crispy_field }}
+        </div>
+        <div class="form-group col-md-12 mb-2">
+          {{ review_form.rating | as_crispy_field }}
+        </div>
+        <div class="form-group col-md-12 mb-2">
+          {{ review_form.body | as_crispy_field }}
+        </div>
         <br>
         <a type="submit" href="{% url 'reviews' %}"
            class="btn btn-secondary mx-auto">Cancel</a>
