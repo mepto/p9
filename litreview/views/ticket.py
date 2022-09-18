@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from rules.contrib.views import PermissionRequiredMixin
@@ -40,7 +41,7 @@ class TicketCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             form.image = request.FILES
             return self.form_valid(form)
         else:
-            return self.form_invalid(form)
+            return render(request, self.template_name, {'ticket_form': form})
 
     def get_context_data(self, **kwargs):
         """Call the base implementation first to get the context."""

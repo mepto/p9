@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from rules.contrib.views import PermissionRequiredMixin
@@ -25,7 +26,6 @@ class ReviewListView(ListView):
 
 
 class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    # class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     """Create a review."""
 
     model = Review
@@ -34,7 +34,6 @@ class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('reviews')
     success_message = "Review created successfully"
     title = 'Create a review'
-    # form_class = ReviewForm
     form_class = None
     ticket_form_class = TicketForm
     ticket_form_prefix = 'ticket'
@@ -45,27 +44,26 @@ class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         """Post and save data."""
         self.object = None
-
+        review_form = self.review_form_class(request.POST, prefix=self.review_form_prefix)
+        ticket_form = None
         if 'ticket-user' in request.POST:
             ticket_form = self.ticket_form_class(request.POST, request.FILES, prefix=self.ticket_form_prefix)
             if ticket_form.is_valid():
                 ticket = ticket_form.save()
                 self.ticket_id = ticket.id
             else:
-                print('ticket form is NOT valid')
-                # return both forms?
+                return render(request, self.template_name, {'ticket_form': ticket_form, 'review_form': review_form})
 
         if not self.ticket_id and 'ticket' in kwargs:
-            self.ticket_id = kwargs['ticket']
+            self.ticket_id = int(kwargs['ticket'])
 
-        review_form = self.review_form_class(request.POST, prefix=self.review_form_prefix)
         if review_form.is_valid():
             review = review_form.save(commit=False)
-            review.ticket = Ticket.objects.get(id=self.ticket_id)
+            review.ticket_id = self.ticket_id
             review.save()
             return self.form_valid(review_form)
         else:
-            return self.form_invalid(review_form)
+            return render(request, self.template_name, {'ticket_form': ticket_form, 'review_form': review_form})
 
     def get(self, request, *args, **kwargs):
         """Get form data."""
@@ -111,23 +109,43 @@ class ReviewEditView(ReviewCreateView, UpdateView):
     title = 'Edit my review request ticket'
 
     def has_permission(self):
-        obj = Review.objects.get(id=self.kwargs['pk'])
+        obj = Review.objects.get(id=self.kwargs['review'])
         perms = self.get_permission_required()
         return self.request.user.has_perms(perms, obj)
 
     def post(self, request, *args, **kwargs):
         """Post and save data."""
         self.object = Review.objects.get(id=kwargs['review'])
-        form = self.get_form()
-        if form.is_valid():
-            form.instance.id = self.object.id
-            form.instance.user = User.objects.get(id=self.object.user_id)
-            return self.form_valid(form)
+
+        review_form = self.review_form_class(request.POST, prefix=self.review_form_prefix)
+        ticket_form = None
+        if 'ticket-user' in request.POST:
+            ticket_form = self.ticket_form_class(request.POST, request.FILES, prefix=self.ticket_form_prefix)
+            ticket_object = Ticket.objects.get(id=self.object.ticket_id)
+            # self.ticket_id = self.object.ticket_id
+            if ticket_form.is_valid() and review_form.is_valid():
+                ticket = ticket_form.save(commit=False)
+                ticket.id = ticket_object.id
+                ticket.time_created = ticket_object.time_created
+                review = review_form.save(commit=False)
+                review.ticket_id = self.object.ticket_id
+                review.time_created = self.object.time_created
+                ticket.save()
+                review.save()
+                return self.form_valid(review_form)
+            else:
+                return render(request, self.template_name, {'ticket_form': ticket_form, 'review_form': review_form})
         else:
-            return self.form_invalid(form)
+            if review_form.is_valid():
+                review = review_form.save(commit=False)
+                review.ticket_id = self.object.ticket_id
+                review.time_created = self.object.time_created
+                review.save()
+                return self.form_valid(review_form)
 
     def get(self, request, *args, **kwargs):
         self.object = None
+        context = None
         if 'review' in kwargs:
             context = self.get_context_data(review=kwargs['review'])
         return self.render_to_response(context)
@@ -152,7 +170,7 @@ class ReviewEditView(ReviewCreateView, UpdateView):
                 'image': ticket_object.image
             }
             context.update({
-                'ticket_form': TicketForm(initial=ticket_initial_data),
+                'ticket_form': TicketForm(initial=ticket_initial_data, prefix='ticket'),
                 'ticket_data': {
                     'image': ticket_object.cover if ticket_object.image else None,
                 }})
@@ -167,7 +185,7 @@ class ReviewEditView(ReviewCreateView, UpdateView):
                 'ticket_readonly': True
             })
 
-        context['review_form'] = ReviewForm(initial=review_initial_data)
+        context['review_form'] = ReviewForm(initial=review_initial_data, prefix='review')
         context['title'] = self.title
         return context
 

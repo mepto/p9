@@ -1,6 +1,4 @@
 import rules
-from django.conf import settings
-from rules.permissions import add_perm
 from rules.predicates import predicate, is_authenticated, always_allow
 
 
@@ -15,7 +13,7 @@ def is_own_ticket(user, obj):
 def is_own_review(user, review):
     if not review:
         return False
-    return user.is_authenticated & review.user == user
+    return user.is_authenticated & (review.user == user)
 
 
 rules.add_perm('litreview.view_ticket', always_allow)

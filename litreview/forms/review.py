@@ -1,4 +1,3 @@
-from crispy_forms.bootstrap import UneditableField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Field, Layout, Row
 from django.forms import CharField, ModelForm, Textarea, forms
@@ -7,7 +6,6 @@ from litreview.models import Review
 
 class ReviewForm(ModelForm):
     """Set form for ticket creation/edition."""
-    prefix = 'rev'
 
     class Meta:
         model = Review
