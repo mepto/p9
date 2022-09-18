@@ -32,6 +32,20 @@ h2.page-title {
   padding-bottom: 5px;
 }
 
+h4 {
+  font-size: 15px;
+  margin: 5px auto 20px auto;
+  font-weight: bold;
+  border-bottom: 1px solid $secondary;
+  text-transform: uppercase;
+
+  span {
+    background: $secondary;
+    color: white;
+    padding: 2px 5px;
+  }
+}
+
 header {
   margin-bottom: 30px;
 

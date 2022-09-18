@@ -98,7 +98,7 @@ class TicketDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Ticket
     success_url = reverse_lazy('tickets')
     template_name = "confirm_delete.html"
-    title = 'Delete review?'
+    title = 'Delete ticket?'
 
     def has_permission(self):
         obj = Ticket.objects.get(id=self.kwargs['pk'])
@@ -108,5 +108,7 @@ class TicketDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         """Return deletion of confirmation."""
         context = super().get_context_data(**kwargs)
+        context['item'] = Ticket.objects.get(id=self.kwargs['pk'])
+        context['redirect_url'] = self.success_url
         context['title'] = self.title
         return context

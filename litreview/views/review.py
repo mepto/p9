@@ -122,7 +122,6 @@ class ReviewEditView(ReviewCreateView, UpdateView):
         if 'ticket-user' in request.POST:
             ticket_form = self.ticket_form_class(request.POST, request.FILES, prefix=self.ticket_form_prefix)
             ticket_object = Ticket.objects.get(id=self.object.ticket_id)
-            # self.ticket_id = self.object.ticket_id
             if ticket_form.is_valid() and review_form.is_valid():
                 ticket = ticket_form.save(commit=False)
                 ticket.id = ticket_object.id
@@ -130,6 +129,7 @@ class ReviewEditView(ReviewCreateView, UpdateView):
                 review = review_form.save(commit=False)
                 review.ticket_id = self.object.ticket_id
                 review.time_created = self.object.time_created
+                review.id = self.object.id
                 ticket.save()
                 review.save()
                 return self.form_valid(review_form)
@@ -140,6 +140,7 @@ class ReviewEditView(ReviewCreateView, UpdateView):
                 review = review_form.save(commit=False)
                 review.ticket_id = self.object.ticket_id
                 review.time_created = self.object.time_created
+                review.id = self.object.id
                 review.save()
                 return self.form_valid(review_form)
 
@@ -206,5 +207,7 @@ class ReviewDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         """Return deletion of confirmation."""
         context = super().get_context_data(**kwargs)
+        context['item'] = Review.objects.get(id=self.kwargs['pk'])
+        context['redirect_url'] = self.success_url
         context['title'] = self.title
         return context
