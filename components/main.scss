@@ -32,18 +32,28 @@ h2.page-title {
   padding-bottom: 5px;
 }
 
+h3 {
+  font-size: 20px;
+  //text-transform: uppercase;
+}
+
 h4 {
-  font-size: 15px;
+  font-size: 17px;
   margin: 5px auto 20px auto;
   font-weight: bold;
-  border-bottom: 1px solid $secondary;
+
   text-transform: uppercase;
 
-  span {
-    background: $secondary;
-    color: white;
-    padding: 2px 5px;
+  &.boxed {
+    border-bottom: 1px solid $secondary;
+
+    span {
+      background: $secondary;
+      color: white;
+      padding: 2px 5px;
+    }
   }
+
 }
 
 header {

@@ -12,10 +12,10 @@
     <div class="ticket mt-5">
       <div class="col-12 bg-dark ticket-header d-flex justify-content-between
        align-items-stretch">
-        <h4 class="align-self-center mb-0 pt-1 pb-1 pe-2 ps-2">
+        <h3 class="align-self-center mb-0 pt-1 pb-1 pe-2 ps-2">
           <i class="bi bi-chat-left-quote"></i>
           {% if item.user == user %}
-            &nbsp;You submitted a review</h4>
+            &nbsp;<strong>You</strong> submitted a review</h3>
             <span class="align-self-center">
             <a class="btn btn-outline-light ms"
                href="{% url 'review-edit' item.id %}">
@@ -25,13 +25,13 @@
               <i class="bi bi-trash"></i> Delete</a>
           </span>
           {% else %}
-            {{ item.user }} submitted a review</h4>
+            <strong>{{ item.user }}</strong> submitted a review</h4>
           {% endif %}
         <span class="float-end align-self-center"><small>
           {{ item.time_created }}</small></span>
       </div>
       <div class="col-12 ticket-content">
-        <h3 class="fw-bold">{{ item.headline }}</h3>
+        <h4 class="fw-bold">{{ item.headline }}</h4>
         <hr>
         <div>{{ item.rating }}</div>
         <div>{{ item.body }}</div>
