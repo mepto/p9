@@ -1,4 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F
+from django.db.models.lookups import Range
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -7,6 +9,9 @@ from rules.contrib.views import PermissionRequiredMixin
 from litreview.forms.review import ReviewForm
 from litreview.forms.ticket import TicketForm
 from litreview.models import Review, Ticket, User
+
+
+# TODO: make tz aware
 
 
 class ReviewListView(ListView):
@@ -22,6 +27,7 @@ class ReviewListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
         context['data'] = Review.objects.all()
+        # context['data'] = Review.objects.all().annotate(rating_range=Range(1, int(F('rating'))))
         return context
 
 

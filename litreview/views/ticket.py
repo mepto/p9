@@ -8,6 +8,9 @@ from litreview.forms.ticket import TicketForm
 from litreview.models import Ticket, User
 
 
+# TODO: make tz aware
+
+
 class TicketListView(ListView):
     """List review request tickets."""
     model = Ticket

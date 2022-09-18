@@ -8,11 +8,16 @@ $hand: 'Just Another Hand', sans-serif;
 $primary: #1D7370;
 $secondary: #663300;
 $shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
+$rating: #CCAB52;
 
 
 .bg-dark {
   background: $secondary !important;
   color: white;
+}
+
+.bi.bi-star, .bi.bi-star-fill {
+  color: $rating;
 }
 
 body {
@@ -163,5 +168,63 @@ header {
 
   #div_id_ticket, #div_id_user {
     margin-bottom: 0 !important;
+  }
+}
+
+#div_id_review-rating {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  & > div {
+    margin-top: 10px;
+    margin-bottom: 0.5em;
+    margin-left: 15px;
+    height: 28px;
+    width: 150px;
+
+    .form-check {
+      display: inline-block;
+      padding-left: 0;
+      width: 30px;
+      height: 28px;
+      margin-left: -5px;
+
+      label {
+        position: relative;
+        width: 1px;
+        height: 1px;
+
+        &:before {
+          content: "\f588";
+          color: $rating;
+          font-family: "bootstrap-icons", sans-serif;
+          position: absolute;
+          cursor: pointer;
+          left: 0px;
+          top: -35px;
+          background: white;
+          padding: 0px 5px;
+          border: 1px solid #ced4da;
+        }
+      }
+
+      .form-check-input {
+        float: left;
+        position: relative;
+        margin-left: 0;
+        width: 30px;
+        &:focus {
+          border-color: pink !important;
+          box-shadow: none !important;
+        }
+
+        &:checked {
+          & + label:before {
+            content: '\F586';
+          }
+        }
+      }
+    }
   }
 }

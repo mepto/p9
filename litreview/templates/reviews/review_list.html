@@ -33,7 +33,13 @@
       <div class="col-12 ticket-content">
         <h4 class="fw-bold">{{ item.headline }}</h4>
         <hr>
-        <div>{{ item.rating }}</div>
+        <div>
+          {% with ''|center:item.rating as range %}
+            {% for _ in range %}
+              <i class="bi bi-star-fill"></i>
+            {% endfor %}
+          {% endwith %}
+        </div>
         <div>{{ item.body }}</div>
       </div>
     </div>

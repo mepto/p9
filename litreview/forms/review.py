@@ -1,6 +1,6 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Field, Layout, Row
-from django.forms import CharField, ModelForm, Textarea, forms
+from django.forms import CharField, ModelForm, RadioSelect, Textarea, forms
 from litreview.models import Review
 
 
@@ -10,6 +10,17 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'user', 'headline', 'body']
+        widgets = {
+            'rating': RadioSelect(
+                choices=[
+                    (1, ''),
+                    (2, ''),
+                    (3, ''),
+                    (4, ''),
+                    (5, ''),
+                ]
+            )
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
