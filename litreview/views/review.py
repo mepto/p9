@@ -24,7 +24,6 @@ class ReviewListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
         context['data'] = Review.objects.all()
-        # context['data'] = Review.objects.all().annotate(rating_range=Range(1, int(F('rating'))))
         return context
 
 
