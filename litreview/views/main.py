@@ -24,8 +24,10 @@ class SignUp(CreateView):
 
 class UserProfile(TemplateView):
     template_name = '../templates/users/user_profile.html'
+    title = 'User profile'
 
     def get(self, request, *args, **kwargs):
         user = request.user
         context = self.get_context_data(**kwargs)
+        context['title'] = self.title
         return self.render_to_response(context)
