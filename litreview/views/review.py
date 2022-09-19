@@ -11,9 +11,6 @@ from litreview.forms.ticket import TicketForm
 from litreview.models import Review, Ticket, User
 
 
-# TODO: make tz aware
-
-
 class ReviewListView(ListView):
     """List all reviews."""
     model = Review
