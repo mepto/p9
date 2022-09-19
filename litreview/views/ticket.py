@@ -55,7 +55,7 @@ class TicketCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class TicketEditView(TicketCreateView, UpdateView):
     """Edit ticket created by user."""
     permission_required = 'litreview.change_ticket'
-    title = 'Edit my review request ticket'
+    title = 'Edit a review request ticket'
 
     def has_permission(self):
         obj = Ticket.objects.get(id=self.kwargs['pk'])

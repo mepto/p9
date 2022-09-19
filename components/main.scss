@@ -1,14 +1,12 @@
-//@import url("/node_modules/bootstrap-icons/font/bootstrap-icons.css");
-//@import url('https://fonts.googleapis.com/css2?family=Asap:wght@400;700&family=Caudex:wght@400;700&family=Jost:ital,wght@0,300;0,400;1,700&family=Just+Another+Hand&family=Kameron:wght@400;700&family=Nunito+Sans:wght@300;700&family=Nunito:wght@300;700&family=Rozha+One&family=Work+Sans:wght@300;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Rozha+One&family=Work+Sans:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300;700&family=Grape+Nuts&family=Work+Sans:wght@300;700&display=swap');
 
-$serif: 'Rohza One', serif;
+$cursive: 'Arima Madurai', cursive;
 $sans-serif: 'Work Sans', sans-serif;
-$hand: 'Just Another Hand', sans-serif;
+$hand: 'Grape Nuts', cursive;
 $primary: #1D7370;
-$secondary: #663300;
+$secondary: #732722;
 $shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
-$rating: #CCAB52;
+$rating: #BF821D;
 
 
 .bg-dark {
@@ -21,12 +19,12 @@ $rating: #CCAB52;
 }
 
 body {
-  font-family: $sans-serif;
+  font-family: $cursive;
   background: url(https://www.toptal.com/designers/subtlepatterns/uploads/ricepaper2.png) repeat;
 }
 
-h1, h2, h3, h4 {
-  font-family: $serif;
+h2 {
+  font-family: $cursive;
 }
 
 h2.page-title {
@@ -39,18 +37,12 @@ h2.page-title {
 
 h3 {
   font-size: 20px;
-  //text-transform: uppercase;
-}
-
-h4 {
-  font-size: 17px;
-  margin: 5px auto 20px auto;
-  font-weight: bold;
-
-  text-transform: uppercase;
-
+  font-family: $cursive;
   &.boxed {
     border-bottom: 1px solid $secondary;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-top: 20px;
 
     span {
       background: $secondary;
@@ -58,7 +50,14 @@ h4 {
       padding: 2px 5px;
     }
   }
+}
 
+h4 {
+  font-family: $hand;
+  font-size: 20px;
+  margin: 5px auto 20px auto;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 header {
@@ -76,7 +75,7 @@ header {
     }
 
     &.logo {
-      font-family: $serif;
+      font-family: $cursive;
       font-size: 30px;
       font-weight: bold;
 
@@ -97,6 +96,20 @@ header {
     color: #fff;
     background: darken($primary, 3%);
     border-color: darken($primary, 3%);
+  }
+}
+
+.btn {
+  font-family: $cursive;
+}
+
+.btn-outline-dark {
+    color: $primary;
+    border-color: $primary;
+
+  &:hover {
+    background-color: $primary;
+    border-color: $primary;
   }
 }
 
@@ -144,14 +157,16 @@ header {
     padding: 5px 10px;
     color: #fff;
 
-    h4 {
-      font-family: $serif;
+    h3 {
+      font-family: $cursive;
     }
   }
 
   .ticket-content {
     display: inline-block;
     padding: 15px 20px;
+    font-family: $hand;
+    font-size: 20px;
   }
 }
 
@@ -159,11 +174,21 @@ header {
   box-shadow: $shadow;
 
   label, .form-label {
-    font-size: 20px;
-    font-family: $serif;
+    font-size: 18px;
+    font-family: $cursive;
     color: $secondary;
     margin-top: 10px;
     margin-bottom: 0.5em;
+  }
+
+  .ticket-content {
+    font-family: $hand;
+    font-size: 20px;
+  }
+
+  .form-control, .input-group-text {
+    font-family: $hand;
+    font-size: 20px;
   }
 
   #div_id_ticket, #div_id_user {
@@ -199,6 +224,7 @@ header {
           content: "\f588";
           color: $rating;
           font-family: "bootstrap-icons", sans-serif;
+          font-size: 19px;
           position: absolute;
           cursor: pointer;
           left: 0px;

@@ -2,8 +2,8 @@
 {% load crispy_forms_tags %}
 
 {% block main %}
-  <div id="">
-    <h4 class="boxed"><span>Follow a new user</span></h4>
+  <div class="mb-5">
+    <h3 class="boxed"><span>Follow a new user</span></h3>
     <form method="post">
       {% csrf_token %}
       <div class="d-flex align-items-baseline justify-content-between">
@@ -15,17 +15,19 @@
         </button>
       </div>
     </form>
-    <br>
-    <br>
-    <h4 class="boxed"><span>Users you are folllowing</span></h4>
+  </div>
+  <div class="mb-5">
+    <h3 class="boxed"><span>Users you are folllowing</span></h3>
     {% if following %}
       {% for item in following %}
         <div class="d-flex justify-content-between">
-          <img class="micro-avatar" src="{% if item.followed_user.user_avatar %}
+          <img class="micro-avatar me-5" src=
+              "{% if item.followed_user.user_avatar %}
 {{ item.followed_user.user_avatar.url }}{% else %}https://via.placeholder.com/3
 0{% endif %}"/>
-          <span>{{ item.followed_user.username }}</span>
-          <a class="btn btn-default" href="{% url 'unfollow' item.id %}">
+          <span class="flex-grow-1">{{ item.followed_user.username }}</span>
+          <a class="btn btn-default ms-auto" href=
+              "{% url 'unfollow' item.id %}">
             <i class="bi bi-person-x"></i> Unfollow
           </a>
         </div>
@@ -36,16 +38,17 @@
     {% else %}
       <p>You are not following any users yet. Follow users to find your next
         book!</p>
-    {% endif %} <br>
-    <br>
-    <h4 class="boxed"><span>Users who are following you</span></h4>
+    {% endif %}
+  </div>
+  <div class="mb-5">
+    <h3 class="boxed"><span>Users who are following you</span></h3>
     {% if followed_by %}
       {% for item in followed_by %}
         <div class="d-flex justify-content-between">
-          <img class="micro-avatar" src="{% if item.user.user_avatar %}
+          <img class="micro-avatar me-5" src="{% if item.user.user_avatar %}
 {{ item.user.user_avatar.url }}{% else %}https://via.placeholder.com/3
 0{% endif %}"/>
-          <span>{{ item.user.username }}</span>
+          <span class="flex-grow-1 mx-auto">{{ item.user.username }}</span>
         </div>
         {% if not forloop.last %}
           <hr class="mt-2 mb-2">
@@ -54,11 +57,9 @@
     {% else %}
       <p>No one is following you yet. Probably too busy reading a book.</p>
     {% endif %}
-
-    <div class="btn-group mt-5">
-      <a class="btn btn-outline-dark" href="{% url 'home' %}">Back to Home</a>
-    </div>
-
+  </div>
+  <div class="btn-group">
+    <a class="btn btn-outline-dark" href="{% url 'home' %}">Back to Home</a>
   </div>
 
 {% endblock %}

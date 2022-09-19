@@ -108,7 +108,7 @@ class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class ReviewEditView(ReviewCreateView, UpdateView):
     """Edit a review."""
     permission_required = 'litreview.change_review'
-    title = 'Edit my review request ticket'
+    title = 'Edit a review'
 
     def has_permission(self):
         obj = Review.objects.get(id=self.kwargs['review'])

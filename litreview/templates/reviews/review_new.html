@@ -6,23 +6,23 @@
     {% csrf_token %}
     <div class="ticket-form">
       <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
-        <h4 class="align-self-center mb-0 pt-1 pb-1">
+        <h3 class="align-self-center mb-0 pt-1 pb-1">
           <i class="bi bi-bookmark-star-fill"></i>&nbsp;
           {% if ticket_data.user %}
             Review request by {{ ticket_data.user }}
           {% else %}
             Your review request
           {% endif %}
-        </h4>
+        </h3>
       </div>
-      <div class="p-3 clearfix">
-        {% if ticket_data.image %}
-          <div class="float-end col-md-3 pe-3">
-            <img src="{{ ticket_data.image }}" class="cover ms-3 mb-3">
-          </div>
-        {% endif %}
+      <div class="ticket-content p-3 clearfix">
         {% if ticket_readonly %}
-          <h3 class="fw-bold">{{ ticket_data.title }}</h3>
+          {% if ticket_data.image %}
+            <span class="float-start text-start">
+            <img src="{{ ticket_data.image }}" class="cover me-3 mb-3">
+          </span>
+          {% endif %}
+          <h4 class="fw-bold">{{ ticket_data.title }}</h4>
           <p>{{ ticket_data.description }}</p>
         {% else %}
           {#          {% crispy ticket_form %}#}
@@ -35,38 +35,45 @@
           <div class="form-group col-md-12 mb-2">
             {{ ticket_form.description | as_crispy_field }}
           </div>
-          <div class="form-group col-md-12 mb-2">
-            {{ ticket_form.image | as_crispy_field }}
-          </div>
+          {% if ticket_data.image %}
+            <span class="float-end text-end mt-4">
+            <img src="{{ ticket_data.image }}" class="cover me-3 mb-3">
+          </span>
+            <div class="form-group col-md-9 mb-2">
+          {% else %}
+            <div class="form-group col-md-12 mb-2" style="float: left">
+          {% endif %}
+        {{ ticket_form.image | as_crispy_field }}
+        </div>
         {% endif %}
+        </div>
+        <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
+          <h3 class="align-self-center mb-0 pt-1 pb-1">
+            <i class="bi bi-chat-left-quote"></i>
+            &nbsp;Your review</h3></div>
+        <div class="ticket-content p-3">
+          <div class="form-group col-md-12 mb-2">
+            {{ review_form.user.as_hidden }}
+            {{ review_form.ticket.as_hidden }}
+          </div>
+          {#                {% crispy review_form %}#}
+          <div class="form-group col-md-12 mb-2">
+            {{ review_form.headline | as_crispy_field }}
+          </div>
+          <div id="rating" class="form-group col-md-12 mb-2">
+            {{ review_form.rating | as_crispy_field }}
+          </div>
+          <div class="form-group col-md-12 mb-2">
+            {{ review_form.body | as_crispy_field }}
+          </div>
+          <br>
+          <a type="submit" href="{% url 'reviews' %}"
+             class="btn btn-secondary mx-auto">Cancel</a>
+          <button type="submit" class="btn btn-default mx-auto">
+            Submit
+          </button>
+        </div>
       </div>
-      <div class="ticket-header bg-dark pe-3 ps-3 pt-1 pb-1">
-        <h4 class="align-self-center mb-0 pt-1 pb-1">
-          <i class="bi bi-chat-left-quote"></i>
-          &nbsp;Your review</h4></div>
-      <div class="p-3">
-        <div class="form-group col-md-12 mb-2">
-          {{ review_form.user.as_hidden }}
-          {{ review_form.ticket.as_hidden }}
-        </div>
-        {#                {% crispy review_form %}#}
-        <div class="form-group col-md-12 mb-2">
-          {{ review_form.headline | as_crispy_field }}
-        </div>
-        <div id="rating" class="form-group col-md-12 mb-2">
-          {{ review_form.rating | as_crispy_field }}
-        </div>
-        <div class="form-group col-md-12 mb-2">
-          {{ review_form.body | as_crispy_field }}
-        </div>
-        <br>
-        <a type="submit" href="{% url 'reviews' %}"
-           class="btn btn-secondary mx-auto">Cancel</a>
-        <button type="submit" class="btn btn-default mx-auto">
-          Submit
-        </button>
-      </div>
-    </div>
   </form>
   <br>
 {% endblock %}
