@@ -1,6 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import F
-from django.db.models.lookups import Range
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -11,13 +9,14 @@ from litreview.forms.ticket import TicketForm
 from litreview.models import Review, Ticket, User
 
 
-class ReviewListView(ListView):
+class ReviewListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """List all reviews."""
     model = Review
     queryset = Review.objects.all()
     template_name = 'reviews/review_list.html'
     title = 'Existing reviews list'
     paginate_by = 10
+    permission_required = 'litreview.view_review'
 
     def get_context_data(self, **kwargs):
         """Serve full reviews list."""

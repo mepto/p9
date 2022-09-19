@@ -35,13 +35,13 @@ def ticket_has_review(user, ticket):
         return False
 
 
-rules.add_perm('litreview.view_ticket', always_allow)
+rules.add_perm('litreview.view_ticket', is_authenticated)
 rules.add_perm('litreview.add_ticket', is_authenticated)
 rules.add_perm('litreview.change_ticket', is_own_ticket)
 rules.add_perm('litreview.delete_ticket', is_own_ticket)
 
 
-rules.add_perm('litreview.view_review', always_allow)
+rules.add_perm('litreview.view_review', is_authenticated)
 rules.add_perm('litreview.add_review', is_authenticated & ~ticket_has_review)
 rules.add_perm('litreview.change_review', is_own_review)
 rules.add_perm('litreview.delete_review', is_own_review)

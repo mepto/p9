@@ -8,13 +8,14 @@ from litreview.forms.ticket import TicketForm
 from litreview.models import Ticket, User
 
 
-class TicketListView(ListView):
+class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     """List review request tickets."""
     model = Ticket
     queryset = Ticket.objects.all()
     template_name = 'tickets/ticket_list.html'
     title = 'Existing tickets list'
     paginate_by = 10
+    permission_required = 'litreview.view_ticket'
 
     def get_context_data(self, **kwargs):
         """Serve full ticket list."""
