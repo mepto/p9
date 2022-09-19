@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -25,7 +26,8 @@ class UserFollowedListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
         form = self.form
         context = super().get_context_data(**kwargs)
         context['title'] = self.title
-        context['data'] = UserFollows.objects.filter(user_id=self.request.user.id)
+        context['following'] = UserFollows.objects.filter(user_id=self.request.user.id)
+        context['followed_by'] = UserFollows.objects.filter(followed_user_id=self.request.user.id)
         context['form'] = form
         return context
 
@@ -36,9 +38,15 @@ class UserFollowedListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
         if form.is_valid():
             follow = form.save(commit=False)
             follow.user_id = request.user.id
-            follow.save()
-            messages.success(request, f'You are now following {follow.followed_user}')
-            return HttpResponseRedirect(reverse_lazy('followed'))
+            if not UserFollows.objects.filter(Q(followed_user=follow.followed_user) & Q(user_id=follow.user_id)):
+                follow.save()
+                messages.success(request, f'You are now following {follow.followed_user}')
+                return HttpResponseRedirect(reverse_lazy('followed'))
+            else:
+                context = self.get_context_data()
+                context.update({'form': form})
+                messages.error(request, 'You are already follwing this user.')
+                return render(request, self.template_name, context)
         else:
             context = self.get_context_data()
             context.update({'form': form})

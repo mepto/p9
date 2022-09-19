@@ -31,7 +31,7 @@ class UserFollowForm(forms.ModelForm):
     def clean_followed_user(self):
         data = self.cleaned_data['followed_user']
         try:
-            user = User.objects.filter(username=data).first()
+            user = User.objects.get(username=data)
         except User.DoesNotExist:
             raise ValidationError('No such username')
         return user

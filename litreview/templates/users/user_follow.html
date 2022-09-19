@@ -17,9 +17,9 @@
     </form>
     <br>
     <br>
-    <h4 class="boxed"><span>List of users already followed</span></h4>
-    {% if data %}
-      {% for item in data %}
+    <h4 class="boxed"><span>Users you are folllowing</span></h4>
+    {% if following %}
+      {% for item in following %}
         <div class="d-flex justify-content-between">
           <img class="micro-avatar" src="{% if item.followed_user.user_avatar %}
 {{ item.followed_user.user_avatar.url }}{% else %}https://via.placeholder.com/3
@@ -34,7 +34,25 @@
         {% endif %}
       {% endfor %}
     {% else %}
-      <p>You are not following any user yet.</p>
+      <p>You are not following any users yet. Follow users to find your next
+        book!</p>
+    {% endif %} <br>
+    <br>
+    <h4 class="boxed"><span>Users who are following you</span></h4>
+    {% if followed_by %}
+      {% for item in followed_by %}
+        <div class="d-flex justify-content-between">
+          <img class="micro-avatar" src="{% if item.user.user_avatar %}
+{{ item.user.user_avatar.url }}{% else %}https://via.placeholder.com/3
+0{% endif %}"/>
+          <span>{{ item.user.username }}</span>
+        </div>
+        {% if not forloop.last %}
+          <hr class="mt-2 mb-2">
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No one is following you yet. Probably too busy reading a book.</p>
     {% endif %}
 
     <div class="btn-group mt-5">
