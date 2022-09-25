@@ -52,8 +52,9 @@ class SignUp(CreateView):
 
 
 class UserProfile(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
-    template_name = '../templates/users/user_profile.html'
+    template_name = 'users/user_profile.html'
     title = 'User profile'
+    permission_required = 'litreview.view_profile'
 
     def get(self, request, *args, **kwargs):
         user = request.user

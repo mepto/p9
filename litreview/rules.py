@@ -51,3 +51,4 @@ rules.add_perm('litreview.delete_followers', is_authenticated & is_own_follower)
 
 rules.add_perm('litreview.view_homepagefeed', is_authenticated)
 rules.add_perm('litreview.view_ownfeed', is_authenticated)
+rules.add_perm('litreview.view_profile', is_authenticated)
