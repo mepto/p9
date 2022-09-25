@@ -9,11 +9,11 @@
             <a class="btn btn-outline-light ms"
                href="{% url 'review-edit' item.id %}">
               <i class="bi bi-pencil"></i><span class="d-none
-              d-md-block"> Edit</span></a>
+              d-md-inline-block">&nbsp;Edit</span></a>
             <a class="btn btn-outline-light"
                href="{% url 'review-delete' item.id %}">
               <i class="bi bi-trash"></i><span class="d-none
-              d-md-block"> Delete</span></a>
+              d-md-inline-block">&nbsp;Delete</span></a>
           </span>
       {% else %}
         <strong>{{ item.user }}</strong> submitted a review</h4>
