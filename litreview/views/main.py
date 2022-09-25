@@ -10,11 +10,12 @@ from litreview.models import Review, Ticket, User, UserFollows
 
 
 class HomepageFeed(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Display feed for user on homepage with posts from users followed and own posts."""
     template_name = 'homepagefeed.html'
     # paginate_by = 10
     permission_required = 'litreview.view_homepagefeed'
     queryset = None
-    title = 'Your tickets and reviews feed'
+    title = 'My tickets and reviews feed'
 
     def get_context_data(self, **kwargs):
         """Retrieve context data."""
@@ -38,6 +39,15 @@ class HomepageFeed(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         reviews = Review.objects.filter(_filter | Q(ticket__user=current_user)).annotate(
             post_type=Value('review', CharField())).select_related('ticket')
         return sorted(chain(reviews, tickets), key=lambda post: post.time_created, reverse=True)
+
+
+class OwnFeed(HomepageFeed):
+    """Display own posts."""
+    title = 'My own requests and reviews'
+    permission_required = 'litreview.ownfeed'
+
+    def get_queryset(self):
+        return super().get_queryset(own_only=True)
 
 
 class SignUp(CreateView):
