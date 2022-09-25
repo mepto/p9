@@ -3,8 +3,9 @@
 $cursive: 'Arima Madurai', cursive;
 $sans-serif: 'Work Sans', sans-serif;
 $hand: 'Grape Nuts', cursive;
-$primary: #1D7370;
-$secondary: #732722;
+$primary: #156D8A;
+$secondary: #8A223E;
+$ternary: #4A1221;
 $shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
 $rating: #BF821D;
 
@@ -30,14 +31,15 @@ h2 {
 h2.page-title {
   margin: 5px auto 20px auto;
   font-weight: bold;
-  color: $primary;
-  border-bottom: 3px double $primary;
+  color: $ternary;
+  border-bottom: 3px double $ternary;
   padding-bottom: 5px;
 }
 
 h3 {
   font-size: 20px;
   font-family: $cursive;
+
   &.boxed {
     border-bottom: 1px solid $secondary;
     padding-bottom: 5px;
@@ -48,6 +50,15 @@ h3 {
       background: $secondary;
       color: white;
       padding: 2px 5px;
+    }
+  }
+
+  ~ .datetime {
+    line-height: 1em;
+
+    small {
+      font-family: $cursive;
+      font-size: 14px;
     }
   }
 }
@@ -104,12 +115,78 @@ header {
 }
 
 .btn {
+  position: relative;
+  //display: block;
+  display: inline-block;
   font-family: $cursive;
+  border-radius: 2px;
+  transform-style: flat;
+  transition: all 250ms ease-out;
+
+  &:before,
+  &:after {
+      content: "";
+      position: absolute;
+      z-index: -2;
+    	transition: all 250ms ease-out;
+  }
+}
+
+//paper paper-curl-right
+/* Paper effect – slightly raised off background */
+.paper {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5), 0 0 40px rgba(128, 128, 128, 0.1) inset;
+  //border-color: #dedede;
+}
+
+.paper-curl-right {
+  &:before,
+  &:after {
+    bottom: 12px;
+    width: 50%;
+    height: 55%;
+    max-width: 200px;
+    max-height: 100px;
+    box-shadow: 1px 8px 12px rgba(31, 31, 31, 0.6);
+  }
+
+  &:before {
+    left: 10px;
+  }
+
+  &:after {
+    right: 10px;
+  }
+
+  &:hover {
+    &:before,
+    &:after {
+      box-shadow: 2px 10px 14px rgba(31, 31, 31, 0.9);
+    }
+
+    &:before {
+      transform: skew(-8deg) rotate(-3deg);
+    }
+
+    &:after {
+      transform: skew(8deg) rotate(3deg);
+    }
+  }
+}
+
+.paper-curl-right {
+  &:before {
+    display: none;
+  }
+
+  &:hover {
+    border-radius: 0 0 40% 0 / 0 0 30% 0;
+  }
 }
 
 .btn-outline-dark {
-    color: $primary;
-    border-color: $primary;
+  color: $primary;
+  border-color: $primary;
 
   &:hover {
     background-color: $primary;
@@ -125,6 +202,7 @@ header {
     margin: 0 auto;
   }
 }
+
 
 #register {
   max-width: 600px;
@@ -154,16 +232,12 @@ header {
   max-height: 300px;
 }
 
-.ticket {
+.ticket, .review {
   box-shadow: $shadow;
 
   .ticket-header {
     padding: 5px 10px;
     color: #fff;
-
-    h3 {
-      font-family: $cursive;
-    }
   }
 
   .ticket-content {
@@ -172,6 +246,20 @@ header {
     font-family: $hand;
     font-size: 20px;
   }
+}
+
+.ticket .ticket-header.bg-dark {
+  background: $ternary !important;
+}
+
+.ticket-embedded .ticket {
+  //box-shadow: none !important;
+  //border: 1px solid #ccc;
+  background: rgba(white, 0.7);
+  margin-top: 0 !important;
+  padding: 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
 }
 
 .ticket-form, .review-form {
@@ -244,6 +332,7 @@ header {
         position: relative;
         margin-left: 0;
         width: 30px;
+
         &:focus {
           border-color: pink !important;
           box-shadow: none !important;
@@ -254,6 +343,7 @@ header {
             content: '\F586';
           }
         }
+
         &.star-empty + label:before {
           content: '\F588' !important;
         }

@@ -1,10 +1,6 @@
-from datetime import datetime
 from itertools import chain
 
-from django import views
-from django.contrib.auth.forms import UserCreationForm
 from django.db.models import CharField, Q, Value
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView
 from rules.contrib.views import LoginRequiredMixin, PermissionRequiredMixin
@@ -40,8 +36,7 @@ class HomepageFeed(LoginRequiredMixin, PermissionRequiredMixin, ListView):
             post_type=Value('ticket', CharField()))
 
         reviews = Review.objects.filter(_filter | Q(ticket__user=current_user)).annotate(
-            post_type=Value('review', CharField())).select_related('ticket', 'ticket__user')
-
+            post_type=Value('review', CharField())).select_related('ticket')
         return sorted(chain(reviews, tickets), key=lambda post: post.time_created, reverse=True)
 
 
