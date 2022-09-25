@@ -4,13 +4,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from litreview.views.follow import UserFollowedListView, UserUnfollowView
-from litreview.views.main import Homepage, SignUp, UserProfile
+from litreview.views.main import HomepageFeed, SignUp, UserProfile
 from litreview.views.review import ReviewCreateView, ReviewDeleteView, ReviewEditView, ReviewListView
 from litreview.views.ticket import TicketCreateView, TicketDeleteView, TicketEditView, TicketListView
 
 urlpatterns = [
-    path('home/', Homepage.as_view(), name='home'),
-    path('', Homepage.as_view(), name='home'),
+    path('home/', HomepageFeed.as_view(), name='home'),
+    path('', HomepageFeed.as_view(), name='home'),
     path("signup/", SignUp.as_view(), name="signup"),
     path("profile/", UserProfile.as_view(), name="profile"),
     path('ticket/new/', TicketCreateView.as_view(), name='ticket-new'),

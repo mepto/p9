@@ -4,6 +4,10 @@
 {% block title %}<h2 class="page-title text-center">Login</h2>{% endblock %}
 
 {% block content %}
+  <div class="alert alert-info text-center">
+    <i class="bi bi-info-square-fill"></i> An account is required to consult
+    this website.
+  </div>
   <div class="login">
     <form method="post" id="plouf">
       <div>
@@ -15,5 +19,9 @@
         </div>
       </div>
     </form>
+  <div class="small mt-5 text-center"><p>You do not have an account yet?
+    <a class="" href="{% url 'signup' %}">
+      <i class="bi bi-person-circle"></i> Create an account</a>
+  </p></div>
   </div>
 {% endblock %}

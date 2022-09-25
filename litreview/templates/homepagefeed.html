@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+
+  {% include 'partials/action_buttons.html' %}
+
+  {% for post in data %}
+    {% if post.post_type == 'ticket' %}
+      {% with post as ticket %}
+        {% include 'partials/ticket_list_item.html' %}
+      {% endwith %}
+    {% else %}
+      {% with post as item %}
+        {% include 'partials/review_list_item.html' %}
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}

@@ -10,7 +10,7 @@ class UserManager(BaseUserManager):
     def _create_user(self, username, email, password, avatar=None, **extra_fields):
         """Create and save a user."""
         if not email:
-            raise ValueError('Users must have an email address bitches')
+            raise ValueError('Users must have an email address')
         if not username:
             raise ValueError('Users must have a username')
 
@@ -40,6 +40,16 @@ class User(AbstractUser):
         constraints = [
             models.UniqueConstraint(Lower('email'), name='unique_email')
         ]
+
+    @property
+    def followers(self):
+        """Return a flat list of the user's followers' ids."""
+        return UserFollows.objects.filter(user_id=self.id).values_list('followed_user_id', flat=True)
+
+    @property
+    def following(self):
+        """Return a flat list of the users followed by the requesting user."""
+        return UserFollows.objects.filter(followed_user_id=self.id).values_list('user_id', flat=True)
 
 
 class UserFollows(models.Model):
