@@ -245,10 +245,13 @@ header {
           box-shadow: none !important;
         }
 
-        &:checked {
+        &:checked, &.star-full {
           & + label:before {
             content: '\F586';
           }
+        }
+        &.star-empty + label:before {
+          content: '\F588' !important;
         }
       }
     }
