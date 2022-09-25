@@ -26,7 +26,7 @@
 {{ item.followed_user.user_avatar.url }}{% else %}https://via.placeholder.com/3
 0{% endif %}"/>
           <span class="flex-grow-1">{{ item.followed_user.username }}</span>
-          <a class="btn btn-default ms-auto" href=
+          <a class="btn btn-default paper paper-curl-right ms-auto" href=
               "{% url 'unfollow' item.id %}">
             <i class="bi bi-person-x"></i> Unfollow
           </a>
@@ -59,7 +59,8 @@
     {% endif %}
   </div>
   <div class="btn-group">
-    <a class="btn btn-outline-dark" href="{% url 'home' %}">Back to Home</a>
+    <a class="btn btn-outline-dark" href="{% url 'home' %}">Back to
+      Home</a>
   </div>
 
 {% endblock %}
