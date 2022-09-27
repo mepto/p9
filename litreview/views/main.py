@@ -6,7 +6,7 @@ from django.views.generic import CreateView, ListView, TemplateView
 from rules.contrib.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from litreview.forms.account import RegistrationForm
-from litreview.models import Review, Ticket, User, UserFollows
+from litreview.models import Review, Ticket
 
 
 class HomepageFeed(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -64,7 +64,6 @@ class UserProfile(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'litreview.view_profile'
 
     def get(self, request, *args, **kwargs):
-        user = request.user
         context = self.get_context_data(**kwargs)
         context['title'] = self.title
         return self.render_to_response(context)

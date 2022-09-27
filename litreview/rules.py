@@ -1,5 +1,5 @@
 import rules
-from rules.predicates import predicate, is_authenticated, always_allow
+from rules.predicates import is_authenticated
 
 from litreview.models import Review
 

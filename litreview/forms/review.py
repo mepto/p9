@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Field, Layout, Row
-from django.forms import CharField, ModelForm, RadioSelect, Textarea, forms
+from django.forms import ModelForm, RadioSelect, Textarea
+
 from litreview.models import Review
 
 

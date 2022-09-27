@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from rules.contrib.views import PermissionRequiredMixin
 
 from litreview.forms.review import ReviewForm
@@ -46,8 +46,10 @@ class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             review = review_form.save(commit=False)
             review.ticket_id = self.ticket_id
             review.save()
+            messages.success(request, f'Review "{review.headline}" created successfully.')
             return self.form_valid(review_form)
         else:
+            messages.error(request, 'Could not save. Please check the form and try again.')
             return render(request, self.template_name, {'ticket_form': ticket_form, 'review_form': review_form})
 
     def get(self, request, *args, **kwargs):
@@ -117,8 +119,10 @@ class ReviewEditView(ReviewCreateView, UpdateView):
                 review.id = self.object.id
                 ticket.save()
                 review.save()
+                messages.success(request, f'Review "{review.headline}" edited successfully.')
                 return self.form_valid(review_form)
             else:
+                messages.error(request, 'Could not save. Please check the form and try again.')
                 return render(request, self.template_name, {'ticket_form': ticket_form, 'review_form': review_form})
         else:
             if review_form.is_valid():
@@ -127,7 +131,11 @@ class ReviewEditView(ReviewCreateView, UpdateView):
                 review.time_created = self.object.time_created
                 review.id = self.object.id
                 review.save()
+                messages.success(request, f'Review "{review.headline}" edited successfully.')
                 return self.form_valid(review_form)
+            else:
+                messages.error(request, 'Could not save. Please check the form and try again.')
+                return render(request, self.template_name, {'ticket_form': ticket_form, 'review_form': review_form})
 
     def get(self, request, *args, **kwargs):
         self.object = None
@@ -183,6 +191,10 @@ class ReviewDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
     template_name = "confirm_delete.html"
     title = 'Delete review?'
+
+    def post(self, request, *args, **kwargs):
+        messages.success(request, 'Review deleted successfully.')
+        super().post(request, args, kwargs)
 
     def has_permission(self):
         obj = Review.objects.get(id=self.kwargs['pk'])

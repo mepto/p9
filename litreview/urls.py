@@ -1,7 +1,7 @@
 """litreview URL Configuration."""
-from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path
 
 from litreview.views.follow import UserFollowedListView, UserUnfollowView
 from litreview.views.main import HomepageFeed, OwnFeed, SignUp, UserProfile

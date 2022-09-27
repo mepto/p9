@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -8,7 +7,7 @@ from django.views.generic import DeleteView, ListView
 from rules.contrib.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from litreview.forms.account import UserFollowForm
-from litreview.models import User, UserFollows
+from litreview.models import UserFollows
 
 
 class UserFollowedListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):

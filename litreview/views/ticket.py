@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from rules.contrib.views import PermissionRequiredMixin
 
 from litreview.forms.ticket import TicketForm
@@ -24,8 +24,10 @@ class TicketCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         form = self.get_form()
         if form.is_valid():
             form.image = request.FILES
+            messages.success(request, f'Ticket "{form.instance.title}" created.')
             return self.form_valid(form)
         else:
+            messages.error(request, 'The ticket could not be created. Please check the form and try again.')
             return render(request, self.template_name, {'ticket_form': form})
 
     def get_context_data(self, **kwargs):
@@ -58,8 +60,10 @@ class TicketEditView(TicketCreateView, UpdateView):
                 form.instance.image = request.FILES['image']
             else:
                 form.instance.image = self.object.image
+            messages.success(request, f'The ticket "{form.instance.title}" modified.')
             return self.form_valid(form)
         else:
+            messages.error(request, 'Impossible to edit. Please check the form and try again.')
             return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
@@ -84,6 +88,10 @@ class TicketDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
     template_name = "confirm_delete.html"
     title = 'Delete ticket?'
+
+    def post(self, request, *args, **kwargs):
+        messages.success(request, 'Request for review deleted successfully.')
+        super().post(request, args, kwargs)
 
     def has_permission(self):
         obj = Ticket.objects.get(id=self.kwargs['pk'])

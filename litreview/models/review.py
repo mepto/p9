@@ -4,7 +4,6 @@ from django.db import models
 
 from litreview.models.ticket import Ticket
 
-
 User = get_user_model()
 
 
