@@ -25,7 +25,6 @@
           <h4 class="fw-bold">{{ ticket_data.title }}</h4>
           <p>{{ ticket_data.description }}</p>
         {% else %}
-          {#          {% crispy ticket_form %}#}
           <div class="form-group col-md-12 mb-2">
             {{ ticket_form.user.as_hidden }}
           </div>
@@ -56,7 +55,6 @@
             {{ review_form.user.as_hidden }}
             {{ review_form.ticket.as_hidden }}
           </div>
-          {#                {% crispy review_form %}#}
           <div class="form-group col-md-12 mb-2">
             {{ review_form.headline | as_crispy_field }}
           </div>
@@ -67,7 +65,7 @@
             {{ review_form.body | as_crispy_field }}
           </div>
           <br>
-          <a type="submit" href="{% url 'reviews' %}"
+          <a type="submit" href="{% url 'home' %}"
              class="btn btn-secondary mx-auto paper paper-curl-right">Cancel</a>
           <button type="submit" class="btn btn-default paper
           paper-curl-right mx-auto">

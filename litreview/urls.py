@@ -5,8 +5,8 @@ from django.conf.urls.static import static
 
 from litreview.views.follow import UserFollowedListView, UserUnfollowView
 from litreview.views.main import HomepageFeed, OwnFeed, SignUp, UserProfile
-from litreview.views.review import ReviewCreateView, ReviewDeleteView, ReviewEditView, ReviewListView
-from litreview.views.ticket import TicketCreateView, TicketDeleteView, TicketEditView, TicketListView
+from litreview.views.review import ReviewCreateView, ReviewDeleteView, ReviewEditView
+from litreview.views.ticket import TicketCreateView, TicketDeleteView, TicketEditView
 
 urlpatterns = [
     path('home/', HomepageFeed.as_view(), name='home'),
@@ -17,12 +17,10 @@ urlpatterns = [
     path('ticket/new/', TicketCreateView.as_view(), name='ticket-new'),
     path('ticket/edit/<int:pk>/', TicketEditView.as_view(), name='ticket-edit'),
     path('ticket/delete/<int:pk>/', TicketDeleteView.as_view(), name='ticket-delete'),
-    path('ticket/list/', TicketListView.as_view(), name='tickets'),
     path('review/new/<int:ticket>/', ReviewCreateView.as_view(), name='review-new'),
     path('review/new/', ReviewCreateView.as_view(), name='review-new'),
     path('review/edit/<int:review>/', ReviewEditView.as_view(), name='review-edit'),
     path('review/delete/<int:pk>/', ReviewDeleteView.as_view(), name='review-delete'),
-    path('review/list/', ReviewListView.as_view(), name='reviews'),
     path('following/list/', UserFollowedListView.as_view(), name='followed'),
     path('following/unfollow/<int:pk>', UserUnfollowView.as_view(), name='unfollow'),
 ]

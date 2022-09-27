@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -9,30 +10,13 @@ from litreview.forms.ticket import TicketForm
 from litreview.models import Review, Ticket, User
 
 
-class ReviewListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    """List all reviews."""
-    model = Review
-    queryset = Review.objects.all()
-    template_name = 'reviews/review_list.html'
-    title = 'Existing reviews list'
-    paginate_by = 10
-    permission_required = 'litreview.view_review'
-
-    def get_context_data(self, **kwargs):
-        """Serve full reviews list."""
-        context = super().get_context_data(**kwargs)
-        context['title'] = self.title
-        context['data'] = Review.objects.all()
-        return context
-
-
 class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """Create a review."""
 
     model = Review
     permission_required = 'litreview.add_review'
     template_name = 'reviews/review_new.html'
-    success_url = reverse_lazy('reviews')
+    success_url = reverse_lazy('home')
     success_message = "Review created successfully"
     title = 'Create a review'
     form_class = None
@@ -196,7 +180,7 @@ class ReviewDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """Delete review created by user."""
     permission_required = 'litreview.delete_review'
     model = Review
-    success_url = reverse_lazy('reviews')
+    success_url = reverse_lazy('home')
     template_name = "confirm_delete.html"
     title = 'Delete review?'
 

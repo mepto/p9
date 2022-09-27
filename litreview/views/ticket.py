@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -8,29 +9,12 @@ from litreview.forms.ticket import TicketForm
 from litreview.models import Ticket, User
 
 
-class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    """List review request tickets."""
-    model = Ticket
-    queryset = Ticket.objects.all()
-    template_name = 'tickets/ticket_list.html'
-    title = 'Existing tickets list'
-    paginate_by = 10
-    permission_required = 'litreview.view_ticket'
-
-    def get_context_data(self, **kwargs):
-        """Serve full ticket list."""
-        context = super().get_context_data(**kwargs)
-        context['title'] = self.title
-        context['data'] = Ticket.objects.all()
-        return context
-
-
 class TicketCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     """Create new ticket."""
     model = Ticket
     permission_required = 'litreview.add_ticket'
     template_name = 'tickets/ticket_new.html'
-    success_url = reverse_lazy('tickets')
+    success_url = reverse_lazy('home')
     title = 'Create a ticket for a review request'
     form_class = TicketForm
 
@@ -97,7 +81,7 @@ class TicketDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """Delete ticket created by user."""
     permission_required = 'litreview.delete_ticket'
     model = Ticket
-    success_url = reverse_lazy('tickets')
+    success_url = reverse_lazy('home')
     template_name = "confirm_delete.html"
     title = 'Delete ticket?'
 

@@ -45,7 +45,7 @@ class UserFollowedListView(LoginRequiredMixin, PermissionRequiredMixin, ListView
             else:
                 context = self.get_context_data()
                 context.update({'form': form})
-                messages.error(request, 'You are already follwing this user.')
+                messages.error(request, 'You are already following this user.')
                 return render(request, self.template_name, context)
         else:
             context = self.get_context_data()
