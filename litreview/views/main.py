@@ -16,6 +16,7 @@ class HomepageFeed(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'litreview.view_homepagefeed'
     queryset = None
     title = 'My tickets and reviews feed'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         """Retrieve context data."""
@@ -44,7 +45,8 @@ class HomepageFeed(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class OwnFeed(HomepageFeed):
     """Display own posts."""
     title = 'My own requests and reviews'
-    permission_required = 'litreview.ownfeed'
+    permission_required = 'litreview.view_ownfeed'
+    paginate_by = 10
 
     def get_queryset(self):
         return super().get_queryset(own_only=True)

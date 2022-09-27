@@ -2,8 +2,7 @@
 {% block main %}
 
   {% include 'partials/action_buttons.html' %}
-
-  {% for post in data %}
+  {% for post in page_obj %}
     {% if post.post_type == 'ticket' %}
       {% with post as ticket %}
         {% include 'partials/ticket_list_item.html' %}
@@ -14,4 +13,7 @@
       {% endwith %}
     {% endif %}
   {% endfor %}
+
+  {% include 'partials/pagination.html' %}
+
 {% endblock %}
