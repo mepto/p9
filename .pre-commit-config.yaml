@@ -10,7 +10,7 @@ repos:
         hooks:
             -   id: isort
                 name: isort (python)
-                exclude: migrations|
+                exclude: migrations|models/__init__.py
     -   repo: https://gitlab.com/pycqa/flake8
         rev: 4.0.1
         hooks:
