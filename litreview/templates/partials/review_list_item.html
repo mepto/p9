@@ -16,7 +16,9 @@
               d-md-inline-block">&nbsp;Delete</span></a>
           </span>
       {% else %}
-        <strong>{{ item.user }}</strong> submitted a review</h4>
+        <strong>{{ item.user }}</strong> {% if item.user.user_avatar %}
+        <img class="micro-avatar" src="{{ item.user.user_avatar.url }}"/>
+      {% endif %}submitted a review</h4>
       {% endif %}
     <span class="datetime float-end text-end mt-auto mb-auto">
       <small class="">

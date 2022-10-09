@@ -15,7 +15,9 @@
             <i class="bi bi-trash"></i><span class="d-none
             d-md-inline-block">&nbsp;Delete</span></a>
         </span>
-      {% else %}
+        {% else %}{% if ticket.user.user_avatar %}
+          <img class="micro-avatar" src="{{ ticket.user.user_avatar.url }}"/>
+        {% endif %}
         <strong>{{ ticket.user }}</strong> requested a review</h4>
       {% endif %}
     <span class="datetime float-end text-end mt-auto mb-auto">
