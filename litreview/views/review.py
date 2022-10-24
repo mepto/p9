@@ -194,7 +194,7 @@ class ReviewDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         messages.success(request, 'Review deleted successfully.')
-        super().post(request, args, kwargs)
+        return super().post(request, args, kwargs)
 
     def has_permission(self):
         obj = Review.objects.get(id=self.kwargs['pk'])

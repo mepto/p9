@@ -91,7 +91,7 @@ class TicketDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         messages.success(request, 'Request for review deleted successfully.')
-        super().post(request, args, kwargs)
+        return super().post(request, args, kwargs)
 
     def has_permission(self):
         obj = Ticket.objects.get(id=self.kwargs['pk'])
