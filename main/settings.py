@@ -23,10 +23,15 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Read secret file
-with (BASE_DIR / 'main' / '.litreview.secret').open() as f:
-    SECRETS = json.load(f)
+try:
+    with (BASE_DIR / 'main' / '.litreview.secret').open() as f:
+        SECRETS = json.load(f)
+    SECRET_KEY = SECRETS['SECRET_KEY']
+except FileNotFoundError:
+    print('DJANGO SECRET FILE ERROR: Missing .litreview.secret file! \nAdd a ".litreview.secret" file with a Django '
+          'secret key next to settings.py file. See readme.md for more information.')
+    quit()
 
-SECRET_KEY = SECRETS['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
