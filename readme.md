@@ -38,8 +38,8 @@ Create and activate your virtual environment. The methodology below uses the ven
 
 ### Secret key
 
-Create a .litreview.secret file in the settings folder and add a json 
-dictionary with the SECRET_KEY for Django.
+Create a .litreview.secret file in the main folder and add a json 
+dictionary with the SECRET_KEY item for Django.
 
 ### Requirements
 
