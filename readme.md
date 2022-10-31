@@ -57,6 +57,13 @@ If you create your own database, you will need to run the migrations.
 
 `python manage.py migrate`
 
+### Media folder
+
+You might need to create a media folder at the root with two subfolders: 
+avatars, and covers. Run the following command at the project root:
+
+`mkdir <foldername>`
+
 ### Retrieve static files
 
 `python manage.py collectstatic`
