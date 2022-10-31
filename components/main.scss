@@ -9,6 +9,13 @@ $ternary: #4A1221;
 $shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
 $rating: #BF821D;
 
+a {
+  color: $primary;
+
+  &:hover {
+    color: darken($primary, 3%);
+  }
+}
 
 .bg-dark {
   background: $secondary !important;
@@ -130,6 +137,10 @@ header {
     z-index: -2;
     transition: all 250ms ease-out;
   }
+}
+
+.nav .btn {
+  margin-top: 3px;
 }
 
 //paper paper-curl-right
