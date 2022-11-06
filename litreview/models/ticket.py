@@ -11,6 +11,7 @@ class Ticket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='covers/', null=True, blank=True, verbose_name='Book image')
     time_created = models.DateTimeField(auto_now_add=True)
+    has_review = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-time_created']

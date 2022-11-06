@@ -10,25 +10,27 @@ class TicketForm(ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ['title', 'description', 'image', 'user']
+        fields = ['title', 'description', 'image', 'user', 'has_review']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['description'].widget = Textarea(attrs={'rows': 4, 'cols': 25})
         self.helper = FormHelper()
-        user_layout = Layout(Field('user', readonly=True, type="hidden"))
+        user_layout = Layout(Field('user', readonly=True, type='hidden'))
+        has_review_layout = Layout(Field('has_review', readonly=True, type='hidden'))
         if 'disabled' in kwargs and kwargs['disabled']:
             self.helper.layout = Layout(
                 user_layout,
+                has_review_layout,
                 Row(
                     Field('title', readonly=True, wrapper_class='col-md-9'),
-                    Field('user', readonly=True, type="hidden"),
                 ),
                 Field('description', readonly=True), Field('image', readonly=True)
             )
         else:
             self.helper.layout = Layout(
                 user_layout,
+                has_review_layout,
                 Row(
                     Field('title', wrapper_class='col-md-9'),
                 ),

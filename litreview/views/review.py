@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
@@ -42,10 +43,17 @@ class ReviewCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         if not self.ticket_id and 'ticket' in kwargs:
             self.ticket_id = int(kwargs['ticket'])
 
+        if Ticket.objects.get(id=self.ticket_id).has_review:
+            messages.error(request, 'A review already exists for this request.')
+            return HttpResponseRedirect(self.success_url)
+
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.ticket_id = self.ticket_id
             review.save()
+            ticket = Ticket.objects.get(id=review.ticket_id)
+            ticket.has_review = True
+            ticket.save()
             messages.success(request, f'Review "{review.headline}" created successfully.')
             return self.form_valid(review_form)
         else:
@@ -193,6 +201,9 @@ class ReviewDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     title = 'Delete review?'
 
     def post(self, request, *args, **kwargs):
+        ticket = Ticket.objects.get(id=Review.objects.get(id=self.kwargs['pk']).ticket_id)
+        ticket.has_review = False
+        ticket.save()
         messages.success(request, 'Review deleted successfully.')
         return super().post(request, args, kwargs)
 
